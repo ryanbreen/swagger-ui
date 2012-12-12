@@ -102,6 +102,14 @@ class OperationView extends Backbone.View
         else
           @model.urlify(map, true)
 
+      if (map.credentials)
+          if (!headerParams)
+            headerParams = {}
+          headerParams["Authorization"] = "Basic " + map.credentials
+
+      if (bodyParam)
+          headerParams["Content-Type"] = "application/json"
+
       log 'submitting ' + invocationUrl
 
 
