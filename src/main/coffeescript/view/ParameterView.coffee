@@ -20,8 +20,14 @@ class ParameterView extends Backbone.View
       $('.model-signature', $(@el)).html(@model.signature)
 
     contentTypeModel =
-      isParam: true
-      supportedContentTypes: @model.supportedContentTypes
+      isParam: false
+
+    # support old syntax
+    if @model.supportedContentTypes
+      contentTypeModel.produces = @model.supportedContentTypes
+
+    if @model.produces
+      contentTypeModel.produces = @model.produces
 
     contentTypeView = new ContentTypeView({model: contentTypeModel})
     $('.content-type', $(@el)).append contentTypeView.render().el
