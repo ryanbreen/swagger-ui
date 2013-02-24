@@ -106,6 +106,7 @@ class OperationView extends Backbone.View
           if (!headerParams)
             headerParams = {}
           headerParams["Authorization"] = "Basic " + map.credentials
+          delete map.credentials
 
       if (bodyParam)
           headerParams["Content-Type"] = "application/json"
