@@ -120,19 +120,20 @@ class OperationView extends Backbone.View
 
       log "bodyParam = " + bodyParam 
 
-      headerParams = null
+      headerParams = null	
+
+      if (map.credentials)
+        if (!headerParams)
+          headerParams = {}
+        headerParams["Authorization"] = "Basic " + map.credentials
+        delete map.credentials
+
       invocationUrl = 
         if @model.supportHeaderParams()
           headerParams = @model.getHeaderParams(map)
           @model.urlify(map, false)
         else
           @model.urlify(map, true)
-
-      if (map.credentials)
-          if (!headerParams)
-            headerParams = {}
-          headerParams["Authorization"] = "Basic " + map.credentials
-          delete map.credentials
 
       if (bodyParam)
           headerParams["Content-Type"] = "application/json"
